@@ -11,6 +11,11 @@
 \DeclareOption{oneassignment}{%
   \@oneassignmenttrue
 }
+\newif\if@answersintma
+\@answersintmafalse
+\DeclareOption{answersintma}{%
+  \@answersintmatrue
+}
 \ProcessOptions\relax
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Load packages/class file
@@ -29,6 +34,9 @@
 \RequirePackage[inline,shortlabels]{enumitem}
 \RequirePackage{marginnote}
 \RequirePackage[labelsep=quad]{caption} % Fixes figure captions to OU style
+\if@answersintma
+    \RequirePackage{answers}
+\fi
 %%
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -143,7 +151,6 @@
 	\setlength\abovedisplayskip{8pt plus 1 pt minus 1pt}%
 	\setlength\belowdisplayskip{8pt plus 1pt minus 1pt}%
 }
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% TMA/CMA initiators
 % Usage syntax: \assignment{name}[cut off]{number}[subtitle]
@@ -226,7 +233,11 @@
 \newcommand{\@question}[1][\unskip]{%
 	\stepcounter{question}%
 	\par\addvspace{\bigskipamount}%
-	{\textbf{Question~\thequestion} #1}\nopagebreak\par}
+	{\textbf{Question~\thequestion} #1}\nopagebreak\par
+    \if@answersintma
+        \Writetofile{\jobname-solutions-body}{\protect\question*}
+    \fi
+    }
 %
 %% \@@question is the version with no star: 2nd (compulsory) argument takes number of marks to display. 
 \newcommand{\@@question}[2][\unskip]{%
@@ -237,7 +248,11 @@
 	\fi
 	\stepcounter{question}%
 	\par\addvspace{\bigskipamount}% 
-	{\textbf{Question~\thequestion} #1}\hspace{12pt}--\hspace{12pt}#2 marks\nopagebreak\par}
+	{\textbf{Question~\thequestion} #1}\hspace{12pt}--\hspace{12pt}#2 marks\nopagebreak\par%
+    \if@answersintma
+        \Writetofile{\jobname-solutions-body}{\protect\question*}
+    \fi
+    }
 
 %% Subquestion settings -- all controlled by enumerate with enumitem
 \setlist{itemsep=2pt,topsep=0pt,partopsep=0pt}
@@ -252,6 +267,19 @@
 	\if@markcheck\addtocounter{marksum}{#1}\fi % experimental	
 }
 \let\mk\marks
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Solutions in the TMA itself, if answersintma is active
+\if@answersintma
+    % open the solutions file
+    \Opensolutionfile{\jobname-solutions-body}
+    \Newassociation{tmasolution}{tmaSolution}{\jobname-solutions-body}
+    % add to existing settings, setlist*, not setlist
+    \setlist*[enumerate]{%
+            before={\Writetofile{\jobname-solutions-body}{\protect\enumerate}},
+            after={\Writetofile{\jobname-solutions-body}{\protect\endenumerate}},
+            }
+\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Options for CMAs
 
