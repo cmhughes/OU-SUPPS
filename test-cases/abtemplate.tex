@@ -1,0 +1,230 @@
+\documentclass{ouab}
+% Options:
+%   oneassignment - mode that modifies table of contents for
+%                  ABs containing only one assignment.
+%   markcheck    - experimental version that checks whether part-marks
+%                  for a question add up to the stated marks for the
+%                  question.
+% e.g. use \documentclass[oneassignment]{ouab}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MODULE/DATE/TIME INFORMATION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\faculty{Faculty of Science, Technology, Engineering and Mathematics}
+\modulecode{MXXX}
+\moduletitle{Title of Module}
+\abtitle{Title of AB}
+%\absubtitle{Optional subtitle} %optional subtitle
+\abyear{2015B}
+\copyrightyear{2012} % If different from \abyear
+\suppno{WEB 12345 6} %can be omitted for "DRAFT"
+\versionno{1.0} %optional
+%\optiontext{} %Can be used to change text appearing at top of multi-choice options.
+%\nocutoffdate % Suppresses "Cut-off date" text from appearing
+\oulogofilebase{ou_greyscale_masterlogo_29mm}% Overrides internal OU logo specification
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% INSTRUCTIONS ON FIRST PAGE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\abinstructions{%
+Module-specific instructions for the front page.
+}% ends \abinstructions
+
+%% alternative way of updating the above information
+%\metadataset{faculty=STEM, 
+%            module code=MST142,
+%            module title=Title of Module,
+%            document title=AB title,
+%            document subtitle=AB subtitle,
+%            presentation=2017B,
+%            copyright year=1999,
+%            supp no=3.14159,
+%            version no=1.12,
+%            multiple choice option text=choices,
+%            no cut off date,
+%            instructions=some specific instructions,
+%            }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FORMAT TMA/CMA/generic HEADERS
+% \tma[cut off date]{number}[second line in contents]
+% \cma[cut off date]{number}[second line in contents]
+%
+% Also available: \tma* and \cma* (same syntax}, which does
+% not insert \newpage before the assignment begins.
+%
+% Items in square brackets are optional
+%
+% Generic command also available:
+% \assignment{NAME}[cut off date]{number}[second line in contents]
+%
+% where NAME is the type of assignment (TMA/CMA/EMA etc).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FORMAT FOR QUESTIONS
+% \question[description]{marks}
+%
+% [description] is optional
+%
+% Use enumerate for subquestions. 
+% enumitem is loaded, so you can do
+% \begin{enumerate}[(i)] if you want to change the numbering system.
+% Default numbering systems are:
+% 1st level: (a), (b), (c), ...
+% 2nd level: (i), (ii), (iii), ...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MULTI-CHOICE OPTIONS
+% Two types available:
+% \begin{options}
+%   \item ...
+%   \item ...
+% \end{options}
+%
+% \begin{inlineoptions}[line spacing]{no_of_cols}
+%   \item ...
+%   \item ...
+% \end{inlineoptions}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tma*[12 November 2014]{01}[Covers units A and B]
+Preamble text, if desired.
+
+\question[(essay question)]{25}
+\emph{This question is about nothing in particular.}
+\begin{enumerate}
+\item hello\mk 4
+\item goodbye running a long time until it goes over to a second line perhaps about now.
+\[ a^2 + b^2 = c^2.\]
+\item Another item
+\begin{enumerate}
+\item Sub sub\mk 2
+\item Sub sub question that runs a long time until it goes over to a second line\mk 2
+\end{enumerate}
+\end{enumerate}
+
+\question{25}
+\emph{This question is about nothing in particular.}
+\begin{enumerate}
+\item Marks can also be called using \mk 4
+\item goodbye running a long time until it goes over to a second line perhaps, about now:
+\item 
+\begin{enumerate}
+\item Sub sub\mk 2
+\item Sub sub question that runs a long time until it goes over to a second line\mk 2
+\end{enumerate}
+\end{enumerate}
+Emulate the OUTeX intertext command using the (built-in) enumitem command.
+\begin{enumerate}[resume]
+\item Numbering continues
+\item Starred enumerate environment gives you inline enumerate:
+\begin{enumerate*}
+\item first part
+\item second part
+\item third part\mk{3}
+\end{enumerate*}
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cma{41}[Covers Units C and D]
+
+\question[(inline multi-choice)]{25}
+Choose an inline option.
+
+\begin{inlineoptions}{5} %parameter specifies number of columns
+\item yes
+\item no
+\item maybe
+\item well...
+\item never!
+\item yes
+\item yes
+\item yes
+\noitem %HACK. adds "blank" space so that the items line up as expected
+\noitem
+\end{inlineoptions}
+
+\question[(inline multi-choice)]{25}
+Choose an inline option from four columns.
+
+\begin{inlineoptions}{4} %parameter specifies number of columns
+\item yes
+\item no
+\item maybe
+\item well...
+\item never!
+\item yes
+\item yes
+\item yes
+\end{inlineoptions}
+
+\question[(inline multi-choice)]{25}
+Choose an inline option from three columns.
+
+\begin{inlineoptions}{3} %parameter specifies number of columns
+\item yes
+\item no
+\item maybe
+\item well...
+\item never!
+\item yes
+\end{inlineoptions}
+
+\question*
+Choose an inline option at 1.5 spacing.
+\begin{inlineoptions}[1.5]{3} %optional parameter specifies line spacing
+\item yes
+\item no
+\item maybe
+\item well...
+\item never!
+\item yes
+\item yes
+\item yes
+\noitem %HACK. adds "blank" space so that the items line up as expected
+\end{inlineoptions}
+
+\question[(stupid question)]{25}
+Choose an option.
+\begin{options}
+\item There are no options
+\item There is one option
+\item This option is the wrong choice
+\end{options}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\assignment{QUIZ}[1 April 2015]{01}[Custom assessment type]
+
+\question[(changing subquestion labels)]{8}
+\begin{enumerate}[(i)]
+\item enumitem lets you change the labelling of subquestions\mk 4
+\item goodbye running a long time until it goes over to a second line perhaps
+\end{enumerate}
+
+\question[(changing subquestion labels 2)]{8}
+\begin{enumerate}[(A)]
+\item enumitem lets you change the labelling of subquestions\mk 4
+\item goodbye running a long time until it goes over to a second line perhaps
+\end{enumerate}
+
+\question*[(Starred version showing no marks)]
+This question has no marks associated with it on its first line.\mk 4
+
+\question*
+Another starred question, this time with no optional argument.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other ways to create assessments with/without optional parameters, 
+% to show how they render on the page.
+% Starred versions do not insert a new page before starting the assignment
+
+% Assignment with no cutoff or subtitle
+\tma*{02}
+
+% Assignment with cutoff but no subtitle
+\cma*[an hour ago]{42}
+
+\end{document}
+

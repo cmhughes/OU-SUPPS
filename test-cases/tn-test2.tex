@@ -1,0 +1,15 @@
+% test goals: set the meta data using metadataset, and compare the output
+%             produced using commands (see tn-test1.tex)
+\documentclass{outn}
+\oulogofilebase{ou_greyscale_masterlogo_29mm}% Overrides internal OU logo specification
+\metadataset{faculty={Faculty of Science, Technology, Engineering and Mathematics}, 
+            module title=Title of Module,
+            module code=MXXX,
+            presentation=2015B,
+            copyright year=2012,
+            document title=Title of TN,
+        multiple choice option text={\textbf{choices} multiple choice},
+            }
+\begin{document}
+\maketitle
+\end{document}
